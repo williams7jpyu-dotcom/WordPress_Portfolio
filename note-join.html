@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JOINでデータが増えてしまった日 | Notes — 西村 祐太</title>
+<meta name="description" content="MySQLのJOINで結果が予想より増えてしまった原因と、正規化を学んで前職の資料管理が腑に落ちた話。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" aria-current="page">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="blog.html">Notes</a> <span>/</span> <span>Database</span></div>
+  <div class="article-meta reveal"><span class="cat">Database</span><span class="dot"></span><span>2026.04.27</span><span class="dot"></span><span>読了 約5分</span></div>
+  <h1 class="reveal" style="font-size:clamp(30px,5vw,52px);line-height:1.15;letter-spacing:-0.01em;">JOINでデータが増えてしまった日</h1>
+  <p class="article-lede reveal">10件のはずの一覧が、なぜか30件になって返ってきた。原因はSQLじゃなくて、テーブルの持ち方への理解だった。</p>
+</section>
+
+<section class="section wrap" style="padding-top:24px;">
+  <article class="article reveal">
+    <p>MySQLの課題で、注文の一覧を作っていた。注文テーブルと、注文明細テーブルを<code class="inl">JOIN</code>して、画面に出すだけ——のはずだった。ところが、10件しかないはずの注文が、画面では30件に膨らんでいた。同じ注文番号が、何度も出てくる。</p>
+
+    <h2><span class="en">01 — What happened</span>何が起きたか</h2>
+    <p>原因はすぐ分かった。1つの注文に、明細が複数ぶら下がっていたからだ。注文と明細を素直に結合すると、明細の数だけ行が増える。当たり前のことだけど、最初は「SQLの書き方を間違えた」と思い込んで、そこばかり見直していた。</p>
+    <pre><span class="lang">SQL</span><code><span class="tok-com">-- 明細の数だけ注文が重複する</span>
+<span class="tok-key">SELECT</span> o.id, o.customer, i.item_name
+<span class="tok-key">FROM</span> orders o
+<span class="tok-key">JOIN</span> order_items i <span class="tok-key">ON</span> o.id = i.order_id;
+<span class="tok-com">-- 注文10件 × 明細3件 = 30行返ってくる</span></code></pre>
+    <p>SQLは正しい。「正しく」明細の分だけ行を返している。間違っていたのは、僕が<strong>「1注文 = 1行で返ってくるはず」と勝手に思い込んでいた</strong>こと。データの構造を理解していれば、最初から予想できた挙動だった。</p>
+
+    <blockquote>SQLを疑う前に、テーブルが何を1行として持っているかを確認する。</blockquote>
+
+    <h2><span class="en">02 — Normalization</span>正規化で腑に落ちた</h2>
+    <p>そこから正規化を学び直した。1つの注文に複数の明細があるなら、テーブルを分けて持つ。重複を持たない。これが正規化の基本だと知ったとき、前職でやっていたデータ管理の「なぜ」が、急につながった。</p>
+    <p>金融機関に出向していたとき、顧客情報と取引情報は別々の台帳で管理されていた。当時は「なぜ一緒にしないんだろう」と思っていたけれど、<strong>同じ情報を二重に持つと、片方だけ直して矛盾が生まれる</strong>。それを防ぐための分け方だったと、いまになって理解できた。</p>
+
+    <h2><span class="en">03 — The fix</span>どう直したか</h2>
+    <p>一覧に「注文1件」を出したいなら、集約するか、明細は別で取る。今回は注文ごとに件数だけ見せたかったので、<code class="inl">GROUP BY</code>でまとめた。</p>
+    <pre><span class="lang">SQL</span><code><span class="tok-key">SELECT</span> o.id, o.customer, <span class="tok-fn">COUNT</span>(i.id) <span class="tok-key">AS</span> item_count
+<span class="tok-key">FROM</span> orders o
+<span class="tok-key">JOIN</span> order_items i <span class="tok-key">ON</span> o.id = i.order_id
+<span class="tok-key">GROUP BY</span> o.id, o.customer;
+<span class="tok-com">-- 注文10件が、ちゃんと10行で返る</span></code></pre>
+
+    <div class="callout">
+      <div class="h">学んだこと</div>
+      <p>「結果が変だ」と思ったら、まずテーブルの粒度（1行が何を表すか）を確認する。SQLの構文より、データの持ち方を理解しているかどうかの方が、ずっと効いてくる。</p>
+    </div>
+
+    <hr class="sep" />
+    <p class="muted" style="font-size:14px;">— 学習中に詰まったこと、解決した方法を、忘れないように書き留めています。間違いに気づいたら追記・修正していきます。</p>
+  </article>
+
+  <div class="article-author reveal" style="margin-top:48px;">
+    <img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/profile.png" alt="西村祐太" />
+    <div>
+      <div class="nm">西村 祐太</div>
+      <div class="bio">金融機関向けBPOで約8年、正確性が問われる現場に従事。現在は職業訓練校でJava・Web開発を学習中。「正確さ」をコードに持ち込もうとしています。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" style="padding-top:0;">
+  <nav class="note-nav reveal" aria-label="記事ナビゲーション">
+    <a class="prev" href="note-mvc.html"><div class="k">← 前の記事</div><div class="t">MVCがなかなか掴めなかった話</div></a>
+    <a class="next" href="note-git.html"><div class="k">次の記事 →</div><div class="t">初めてのmergeコンフリクト</div></a>
+  </nav>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

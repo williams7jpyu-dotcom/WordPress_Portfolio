@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>初めてのmergeコンフリクト | Notes — 西村 祐太</title>
+<meta name="description" content="チーム実習でGitを使い、初めてmergeコンフリクトに遭遇したときの記録。焦らず読めばこわくなかった。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" aria-current="page">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="blog.html">Notes</a> <span>/</span> <span>Tools</span></div>
+  <div class="article-meta reveal"><span class="cat">Tools</span><span class="dot"></span><span>2026.03.30</span><span class="dot"></span><span>読了 約5分</span></div>
+  <h1 class="reveal" style="font-size:clamp(30px,5vw,52px);line-height:1.15;letter-spacing:-0.01em;">初めてのmergeコンフリクト</h1>
+  <p class="article-lede reveal">5人のチーム実習。自分のブランチをマージしようとしたら、赤い文字でCONFLICTと出た。最初は事故かと思った。</p>
+</section>
+
+<section class="section wrap" style="padding-top:24px;">
+  <article class="article reveal">
+    <p>個人で課題をやっているときは、Gitは「保存ボタン」くらいの感覚だった。<code class="inl">add</code>して<code class="inl">commit</code>して、それで終わり。ところが、5人のチーム実習で初めて、Gitが本当は何のための道具なのかを思い知った。</p>
+
+    <h2><span class="en">01 — The red letters</span>赤い文字に焦った</h2>
+    <p>自分の担当画面を作り終えて、<code class="inl">main</code>に取り込もうとした。<code class="inl">git merge</code>。すると、見たことのない英語が並んだ。</p>
+    <pre><span class="lang">bash</span><code>$ git merge feature/list
+Auto-merging list.jsp
+<span class="tok-com">CONFLICT (content): Merge conflict in list.jsp</span>
+Automatic merge failed; fix conflicts and commit the result.</code></pre>
+    <p>正直、最初は「自分が何か壊した」と思って血の気が引いた。でも、落ち着いてメッセージを読むと、Gitはただ<strong>「同じ行を2人が別々に直したから、どっちを残すか決めてくれ」</strong>と言っているだけだった。事故じゃなくて、相談だった。</p>
+
+    <h2><span class="en">02 — Reading the marks</span>印を読む</h2>
+    <p>ファイルを開くと、見慣れない記号が入っていた。これも、読めば意味は単純だった。</p>
+    <pre><span class="lang">diff</span><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+&lt;h1&gt;商品一覧&lt;/h1&gt;        <span class="tok-com">// 自分が書いた方</span>
+=======
+&lt;h1&gt;商品リスト&lt;/h1&gt;      <span class="tok-com">// 相手が書いた方</span>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/list</code></pre>
+    <p><code class="inl">=======</code>の上が自分、下が相手。どちらを残すか——あるいは両方を踏まえて書き直すかを、人間が決める。記号を消して、正しい形に整えて、保存してコミットすれば終わり。やってみれば、こわくなかった。</p>
+
+    <blockquote>コンフリクトはエラーじゃない。「ここは人が判断して」という、Gitからの引き継ぎだった。</blockquote>
+
+    <h2><span class="en">03 — What it taught</span>前職と重なったこと</h2>
+    <p>これは、前職で複数人が同じ資料を触るときの「版管理」とまったく同じ問題だった。誰かが古いファイルを上書きして、修正が消える——あの事故を防ぐために、当時はファイル名に日付と担当を入れて運用していた。Gitは、それを仕組みとして、しかも履歴ごと安全にやってくれる。</p>
+    <p>チームで「先にpullしてからpushする」という約束を決めてからは、コンフリクト自体がほとんど起きなくなった。<strong>道具の前に、段取りの取り決めが効く</strong>。これも前職で何度も経験したことだった。</p>
+
+    <div class="callout">
+      <div class="h">チームで決めたルール</div>
+      <p>① 作業前に必ず <code class="inl">git pull</code>。② 1機能 = 1ブランチ。③ こまめにコミットして、変更を小さく保つ。これだけでチーム開発がぐっと穏やかになった。</p>
+    </div>
+
+    <hr class="sep" />
+    <p class="muted" style="font-size:14px;">— 学習中に詰まったこと、解決した方法を、忘れないように書き留めています。間違いに気づいたら追記・修正していきます。</p>
+  </article>
+
+  <div class="article-author reveal" style="margin-top:48px;">
+    <img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/profile.png" alt="西村祐太" />
+    <div>
+      <div class="nm">西村 祐太</div>
+      <div class="bio">金融機関向けBPOで約8年、正確性が問われる現場に従事。現在は職業訓練校でJava・Web開発を学習中。「正確さ」をコードに持ち込もうとしています。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" style="padding-top:0;">
+  <nav class="note-nav reveal" aria-label="記事ナビゲーション">
+    <a class="prev" href="note-join.html"><div class="k">← 前の記事</div><div class="t">JOINでデータが増えてしまった日</div></a>
+    <a class="next" href="note-exception.html"><div class="k">次の記事 →</div><div class="t">例外を握りつぶさない</div></a>
+  </nav>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

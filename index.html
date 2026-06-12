@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>西村 祐太 | Portfolio — Web Coder</title>
+<meta name="description" content="西村祐太のポートフォリオ。金融機関向けBPOで培った正確性と進行管理力、職業訓練校で習得したWeb・プログラミングスキルを掲載しています。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html" aria-label="ホーム">
+      <span class="mark">YN</span>
+      <span class="nm">西村 祐太<small>Yuta Nishimura</small></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替" title="ライト / ダーク">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow hero-tag reveal">Web Coder &nbsp;/&nbsp; Front-end</p>
+      <h1 class="reveal">
+        <span class="ja">正確さと段取りで、<br/>つくる。</span>
+        <span class="en">Building the web with precision &amp; care</span>
+      </h1>
+      <p class="hero-lede reveal">金融機関向けBPOで約8年、ミリ単位の正確性が求められる資料制作・データ管理に従事。その確認力と進行管理力を土台に、いまは Java・Web フロントエンドを学び、つくる側へ。丁寧で、破綻のないコードを書きます。</p>
+      <div class="hero-cta reveal">
+        <a class="btn" href="works.html">作品を見る <span class="arr">→</span></a>
+        <a class="btn btn--ghost" href="about.html">経歴・スキル</a>
+      </div>
+    </div>
+    <div class="hero-portrait reveal">
+      <div class="frame">
+        <img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/profile.png" alt="西村祐太のプロフィール画像" loading="eager" />
+        <div class="meta"><span>Yuta Nishimura</span><span>Tokyo, JP</span></div>
+        <span class="badge">Open to work ●</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- skills marquee -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>Java</span><span>Servlet / JSP</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Python</span><span>MySQL</span><span>Git</span><span>Linux</span><span>MVC</span>
+    <span>Java</span><span>Servlet / JSP</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Python</span><span>MySQL</span><span>Git</span><span>Linux</span><span>MVC</span>
+  </div>
+</div>
+
+<!-- ============ ABOUT PREVIEW ============ -->
+<section class="section wrap">
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="eyebrow">About</p>
+      <p class="lead-para" style="margin-top:22px;">8年間、誤記も矛盾も見逃さない現場にいました。いま、その精度をコードに持ち込んでいます。</p>
+    </div>
+    <div class="prose reveal">
+      <p>株式会社ウィリアムズ・リー・ジャパンより金融機関へ出向し、アナリスト向け資料のデータチェック、契約書・営業資料の作成、取引報告書の出力・発送、データ管理までを一貫して担当。<strong>複数案件を並行しながら納期を守る進行管理</strong>と、関係部署との<strong>認識齟齬のない調整</strong>を強みとしてきました。</p>
+      <p>2025年10月より職業訓練校にて、Java を中心にオブジェクト指向・例外処理・コレクション、サーブレット／JSP による Web アプリ開発、MySQL、Git、Linux、HTML/CSS/JavaScript、Python を体系的に学習。企業実習ではチームリーダーとして工程設計とテスト設計も経験しました。</p>
+      <div class="stats">
+        <div class="stat"><div class="n">8<span>yr</span></div><div class="l">金融BPO実務</div></div>
+        <div class="stat"><div class="n">9<span>+</span></div><div class="l">学習中の技術</div></div>
+        <div class="stat"><div class="n">½<span>mo</span></div><div class="l">新人独り立ち短縮</div></div>
+      </div>
+      <a class="btn btn--ghost" href="about.html">詳しい経歴へ <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURED WORKS ============ -->
+<section class="section wrap" style="padding-top:0;">
+  <div class="section-head reveal">
+    <p class="eyebrow">Selected Works</p>
+    <div class="lead">学習の中で形にしたもの<span class="en">03 — Projects built while learning</span></div>
+    <p class="sub">学習課題として制作したページ・ミニアプリです。設計意図・実装内容・改善点を作品ごとに整理しています。</p>
+  </div>
+  <div class="works-list">
+    <a class="work-row reveal" href="work-cafe.html">
+      <span class="num">01</span>
+      <span class="title">コーポレートサイト構築<span class="en">Corporate Website</span></span>
+      <span class="role">制作範囲 — 構成 / コーディング<span class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></span></span>
+      <span class="go"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <img class="preview" src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/work-cafe.png" alt="" />
+    </a>
+    <a class="work-row reveal" href="work-tracker.html">
+      <span class="num">02</span>
+      <span class="title">応募管理ミニアプリ<span class="en">Job Application Tracker</span></span>
+      <span class="role">制作範囲 — 設計 / コーディング<span class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></span></span>
+      <span class="go"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <img class="preview" src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/work-app.png" alt="" />
+    </a>
+    <a class="work-row reveal" href="work-lp.html">
+      <span class="num">03</span>
+      <span class="title">ランディングページ制作<span class="en">Landing Page</span></span>
+      <span class="role">制作範囲 — ワイヤー作成 / コーディング<span class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></span></span>
+      <span class="go"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <img class="preview" src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/work-lp.png" alt="" />
+    </a>
+  </div>
+  <div style="margin-top:40px;" class="reveal"><a class="btn btn--ghost" href="works.html">すべての作品 <span class="arr">→</span></a></div>
+</section>
+
+<!-- ============ NOTES PREVIEW ============ -->
+<section class="section wrap" style="padding-top:0;">
+  <div class="section-head reveal">
+    <p class="eyebrow">Notes</p>
+    <div class="lead">学びの記録<span class="en">Learning log &amp; thoughts</span></div>
+    <p class="sub">学習中に詰まったこと、解決した方法、設計で考えたことを書き留めています。</p>
+  </div>
+  <div class="notes-list">
+    <a class="note-row reveal" href="note-mvc.html">
+      <span class="date">2026.05.18</span>
+      <span><span class="nt">MVCがなかなか掴めなかった話</span><span class="ex">「Controllerに書くのか、Modelに書くのか」で毎回手が止まっていた。</span></span>
+      <span class="cat">Java</span>
+    </a>
+    <a class="note-row reveal" href="note-join.html">
+      <span class="date">2026.04.27</span>
+      <span><span class="nt">JOINでデータが増えてしまった日</span><span class="ex">10件のはずの一覧が30件に。原因はテーブルの持ち方への理解だった。</span></span>
+      <span class="cat">Database</span>
+    </a>
+    <a class="note-row reveal" href="note-git.html">
+      <span class="date">2026.03.30</span>
+      <span><span class="nt">初めてのmergeコンフリクト</span><span class="ex">5人のチーム実習で、赤い文字のCONFLICTに最初は焦った話。</span></span>
+      <span class="cat">Tools</span>
+    </a>
+  </div>
+  <div style="margin-top:40px;" class="reveal"><a class="btn btn--ghost" href="blog.html">ノート一覧 <span class="arr">→</span></a></div>
+</section>
+
+<!-- ============ CONTACT CTA ============ -->
+<section class="section wrap">
+  <div class="cta-band reveal">
+    <p class="eyebrow">Contact</p>
+    <h2>一緒に、丁寧なものを<br/>つくりませんか。</h2>
+    <a class="btn" href="contact.html">お問い合わせ <span class="arr">→</span></a>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="big">西村 祐太</div>
+        <p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="works.html">Works</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog.html">Notes</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li>
+          <li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Yuta Nishimura</span>
+      <span>Designed &amp; built with care — Tokyo, JP</span>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>チームリーダーとして工程表を引いた | Notes — 西村 祐太</title>
+<meta name="description" content="企業実習でチームリーダーを務め、工程設計・作業割り振り・テスト設計を担当した記録。前職の進行管理がそのまま活きた。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" aria-current="page">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="blog.html">Notes</a> <span>/</span> <span>Team</span></div>
+  <div class="article-meta reveal"><span class="cat">Team</span><span class="dot"></span><span>2026.01.22</span><span class="dot"></span><span>読了 約5分</span></div>
+  <h1 class="reveal" style="font-size:clamp(30px,5vw,52px);line-height:1.15;letter-spacing:-0.01em;">チームリーダーとして<br/>工程表を引いた</h1>
+  <p class="article-lede reveal">企業実習でリーダーを任された。コードは一番できるわけじゃない。でも、段取りなら8年やってきた。</p>
+</section>
+
+<section class="section wrap" style="padding-top:24px;">
+  <article class="article reveal">
+    <p>職業訓練校の企業実習で、5人チームの開発課題に取り組んだ。Java・JSP・Servlet・JavaScript・Oracle DB を使った、それなりに大きいシステム。そこで僕は、チームリーダーを任された。</p>
+    <p>正直、技術力で言えば、僕より飲み込みの早いメンバーもいた。でも、リーダーに求められたのは一番うまくコードを書くことじゃなくて、<strong>全員が迷わず手を動かせる状態を作ること</strong>だった。これは、前職で8年間やってきたことそのものだった。</p>
+
+    <h2><span class="en">01 — Breaking it down</span>まず工程に分けた</h2>
+    <p>最初にやったのは、課題を「やることリスト」に分解すること。画面設計、DB設計、各機能の実装、テスト。それぞれに担当と締切を割り当てて、誰が見ても進捗が分かる工程表にした。</p>
+    <p>前職では、複数の制作物の進捗とスケジュールを、常にこの形で管理していた。<strong>「全体像を一枚にして、抜けと遅れを早く見つける」</strong>——やることは、資料でもシステムでも変わらなかった。</p>
+
+    <blockquote>リーダーの仕事は、自分が速く走ることじゃなくて、全員のつまずきを先に取り除くことだった。</blockquote>
+
+    <h2><span class="en">02 — Designing the tests</span>テストケースを設計した</h2>
+    <p>実装と並行して、システムテストの設計も担当した。「どんな入力で、何が返れば正しいか」を一覧にして、正常系だけでなく、空入力・想定外の値・境界値も漏れなく洗い出す。</p>
+    <p>これは、前職の校正で叩き込まれた感覚がそのまま効いた。<strong>「正しく動くこと」より「おかしな使い方をされても壊れないこと」を確認する</strong>。チェックリストを作って、一項目ずつ潰していく作業は、資料の最終確認と同じリズムだった。</p>
+
+    <h2><span class="en">03 — What I learned</span>学んだこと</h2>
+    <p>この実習で確信したのは、<strong>事務職で培ったスキルは、開発チームの中でちゃんと武器になる</strong>ということ。進行管理、認識合わせ、抜け漏れのチェック。これらは技術とは別の軸で、チームを前に進める力になった。</p>
+    <p>コードはこれから伸ばしていく。でも、段取りとチェックの力は、今日から持ち込める。そう思えたことが、この実習でいちばんの収穫だった。</p>
+
+    <div class="callout">
+      <div class="h">リーダーとしてやったこと</div>
+      <p>工程設計／作業の割り振り／進捗の可視化／テストケースの設計・実施／納品まで。技術より、前職の進行管理の経験が活きた場面が多かった。</p>
+    </div>
+
+    <hr class="sep" />
+    <p class="muted" style="font-size:14px;">— 学習中に詰まったこと、考えたことを、忘れないように書き留めています。間違いに気づいたら追記・修正していきます。</p>
+  </article>
+
+  <div class="article-author reveal" style="margin-top:48px;">
+    <img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/profile.png" alt="西村祐太" />
+    <div>
+      <div class="nm">西村 祐太</div>
+      <div class="bio">金融機関向けBPOで約8年、正確性が問われる現場に従事。現在は職業訓練校でJava・Web開発を学習中。「正確さ」をコードに持ち込もうとしています。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" style="padding-top:0;">
+  <nav class="note-nav reveal" aria-label="記事ナビゲーション">
+    <a class="prev" href="note-css.html"><div class="k">← 前の記事</div><div class="t">CSSの余白設計は、紙面づくりと同じだった</div></a>
+    <a class="next" href="note-career.html"><div class="k">次の記事 →</div><div class="t">なぜ事務職から、コードを書く側へ</div></a>
+  </nav>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

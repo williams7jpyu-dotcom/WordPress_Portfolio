@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CSSの余白設計は、紙面づくりと同じだった | Notes — 西村 祐太</title>
+<meta name="description" content="CSSの余白設計を学んで、前職の資料レイアウトの感覚がそのまま活きると気づいた学習ノート。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" aria-current="page">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="blog.html">Notes</a> <span>/</span> <span>CSS</span></div>
+  <div class="article-meta reveal"><span class="cat">CSS</span><span class="dot"></span><span>2026.02.14</span><span class="dot"></span><span>読了 約4分</span></div>
+  <h1 class="reveal" style="font-size:clamp(30px,5vw,52px);line-height:1.15;letter-spacing:-0.01em;">CSSの余白設計は、<br/>紙面づくりと同じだった</h1>
+  <p class="article-lede reveal">marginを目分量で足していくと、画面はどんどん散らかる。これ、前職で資料を整えていたときと同じだ、と気づいた。</p>
+</section>
+
+<section class="section wrap" style="padding-top:24px;">
+  <article class="article reveal">
+    <p>CSSを習い始めて、レイアウトは作れるようになった。でも、なぜか「なんとなく揃っていない」感じが消えない。要素ごとに<code class="inl">margin: 13px</code>、<code class="inl">margin: 18px</code>……と、その場の見た目で数字を足していたからだ。</p>
+
+    <h2><span class="en">01 — Random numbers</span>バラバラの数字</h2>
+    <p>困ったときに思い出したのが、前職で資料を整えていたときのことだった。読みやすい資料は、見出しと本文の間隔、段落どうしの間隔に<strong>決まったリズム</strong>があった。逆に、行間や余白がバラバラな資料は、内容が同じでも素人っぽく見えた。</p>
+    <p>CSSでも同じだった。余白を「気分」で決めるのをやめて、基準を決めることにした。</p>
+
+    <h2><span class="en">02 — A spacing scale</span>余白に基準を持たせる</h2>
+    <p>4の倍数を基本にした「スケール」を作って、余白はそこからしか選ばないルールにした。CSS変数にしておけば、後からまとめて調整もできる。</p>
+    <pre><span class="lang">CSS</span><code><span class="tok-key">:root</span> {
+  <span class="tok-com">/* 余白は、この中からしか選ばない */</span>
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 40px;
+}
+
+<span class="tok-fn">.card</span> { padding: <span class="tok-key">var</span>(--space-3); }
+<span class="tok-fn">.card</span> + <span class="tok-fn">.card</span> { margin-top: <span class="tok-key">var</span>(--space-2); }</code></pre>
+    <p>これだけで、画面が一気に整って見えるようになった。バラバラの数字を消して、選択肢を絞る。<strong>自由をなくした方が、きれいになる</strong>——これも資料づくりで学んでいたことだった。</p>
+
+    <blockquote>余白は「足すもの」じゃなくて「選ぶもの」。基準があると、迷いも、ばらつきも減る。</blockquote>
+
+    <h2><span class="en">03 — Gap over margin</span>並べる余白はgapで</h2>
+    <p>もう一つ変えたのが、要素を横や縦に並べるとき。以前は一つひとつに<code class="inl">margin</code>を付けていたけれど、<code class="inl">flex</code>や<code class="inl">grid</code>の<code class="inl">gap</code>を使うと、間隔を一括で管理できて、最後の要素の余分な余白に悩むこともなくなった。</p>
+    <pre><span class="lang">CSS</span><code><span class="tok-fn">.list</span> {
+  display: flex;
+  flex-direction: column;
+  gap: <span class="tok-key">var</span>(--space-2);  <span class="tok-com">/* 間隔はこれ一行 */</span>
+}</code></pre>
+
+    <div class="callout">
+      <div class="h">気づき</div>
+      <p>デザインのセンスがない、と思っていた。でも実際に効いていたのは、センスより「基準を決めて、それを守る」という、前職でずっとやってきたことだった。</p>
+    </div>
+
+    <hr class="sep" />
+    <p class="muted" style="font-size:14px;">— 学習中に詰まったこと、解決した方法を、忘れないように書き留めています。間違いに気づいたら追記・修正していきます。</p>
+  </article>
+
+  <div class="article-author reveal" style="margin-top:48px;">
+    <img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/profile.png" alt="西村祐太" />
+    <div>
+      <div class="nm">西村 祐太</div>
+      <div class="bio">金融機関向けBPOで約8年、正確性が問われる現場に従事。現在は職業訓練校でJava・Web開発を学習中。「正確さ」をコードに持ち込もうとしています。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" style="padding-top:0;">
+  <nav class="note-nav reveal" aria-label="記事ナビゲーション">
+    <a class="prev" href="note-exception.html"><div class="k">← 前の記事</div><div class="t">例外を握りつぶさない</div></a>
+    <a class="next" href="note-team.html"><div class="k">次の記事 →</div><div class="t">チームリーダーとして工程表を引いた</div></a>
+  </nav>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

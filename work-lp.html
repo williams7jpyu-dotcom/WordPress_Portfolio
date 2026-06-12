@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ランディングページ制作 | 西村 祐太</title>
+<meta name="description" content="ITスクールの設計ランディングページ。ワイヤー設計からコンバージョン設計まで。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html" aria-current="page">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="works.html">Works</a> <span>/</span> <span>03</span></div>
+  <h1 class="reveal">ランディングページ制作<span class="en">IT School — Landing Page</span></h1>
+  <p class="reveal">ITスクールの資料請求をゴールにしたランディングページ。「設計→共感→行動」の流れを意識し、スクロールとともに納得感が積み上がる構成をワイヤーから設計しました。</p>
+</section>
+
+<section class="wrap reveal">
+  <div class="detail-hero"><img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/work-lp.png" alt="ランディングページのスクリーンショット" /></div>
+</section>
+
+<section class="section wrap">
+  <div class="detail-grid">
+    <div>
+      <div class="detail-block reveal">
+        <h2><span class="en">01 — Overview</span>概要</h2>
+        <p>ITスクールの「無料資料請求」をゴールに設計した1カラムのランディングページです。ターゲットの不安を先回りして解消し、自然に申し込みへ進む流れを組みました。</p>
+        <p>前職の社内報・資料制作で培った「読み手に伝わる文章」の経験を、コピー設計に活かしています。</p>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">02 — Approach</span>設計意図</h2>
+        <ul>
+          <li>ファーストビューで「誰のための何か」を一言で伝え、離脱を防ぐ。</li>
+          <li>悩み→解決策→実績→CTAの順で、申し込みまでの心理を設計。</li>
+          <li>CTAボタンを複数箇所に配置し、どのスクロール位置からでも行動できるようにした。</li>
+        </ul>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">03 — Implementation</span>実装内容</h2>
+        <p>手描きのワイヤーを起点に、セクションごとの役割を明確にしてコーディング。スクロールに合わせたフェードインと、CTAへの導線を JavaScript で加えました。</p>
+        <ul>
+          <li>セクション表示時のフェードインを IntersectionObserver で実装。</li>
+          <li>スムーススクロールでセクション間を接続。</li>
+          <li>フォームの入力項目を最小限にし、離脱を抱える。</li>
+        </ul>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">04 — Reflection</span>改善ポイント</h2>
+        <p>今後は A/B テストを前提にした見出し・CTA文言の検証や、計測タグの設計にも踏み込み、「見た目」だけでなく「成果」で語れる制作を目指します。</p>
+      </div>
+    </div>
+    <aside class="detail-side reveal">
+      <div class="row"><div class="k">Role</div><div class="v">ワイヤー作成 / コーディング</div></div>
+      <div class="row"><div class="k">Year</div><div class="v">2026</div></div>
+      <div class="row"><div class="k">Type</div><div class="v">学習制作 03</div></div>
+      <div class="row"><div class="k">Stack</div><div class="v"><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">LP</span></div></div></div>
+      <div class="row"><div class="k">Live</div><div class="v"><a href="https://williams7jpyu-dotcom.github.io/portfolio-clean/works/it-school-lp.html" target="_blank" rel="noopener" style="color:var(--accent);">作品ページを開く ↗</a></div></div>
+    </aside>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="next-proj">
+    <a href="work-cafe.html">
+      <span><span class="k">Next Project</span><span class="t">コーポレートサイト構築</span></span>
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

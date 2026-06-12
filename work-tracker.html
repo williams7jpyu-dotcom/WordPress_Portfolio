@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>応募管理ミニアプリ | 西村 祐太</title>
+<meta name="description" content="就職活動の応募状況を管理するミニアプリ。状態管理とlocalStorageによる永続化。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html" aria-current="page">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="works.html">Works</a> <span>/</span> <span>02</span></div>
+  <h1 class="reveal">応募管理ミニアプリ<span class="en">Job Application Tracker</span></h1>
+  <p class="reveal">就職活動の応募先・選考状況を一覧で管理するためのミニアプリ。自分の「困りごと」を起点に、必要な機能だけを絞って設計しました。データはブラウザに保存され、リロードしても消えません。</p>
+</section>
+
+<section class="wrap reveal">
+  <div class="detail-hero"><img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/work-app.png" alt="応募管理ミニアプリのスクリーンショット" /></div>
+</section>
+
+<section class="section wrap">
+  <div class="detail-grid">
+    <div>
+      <div class="detail-block reveal">
+        <h2><span class="en">01 — Overview</span>概要</h2>
+        <p>就職活動中の「どこに、いつ、何の選考で応募したか分からなくなる」という課題を解決するための個人ツールです。応募の追加・編集・削除と、選考ステータスの管理を行えます。</p>
+        <p>前職で取引報告書やデータを正確に管理してきた経験から、「抜け漏れを防ぐ一覧性」を最優先に設計しました。</p>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">02 — Approach</span>設計意図</h2>
+        <ul>
+          <li>必要な項目（企業名・職種・応募日・ステータス・メモ）だけに絞り、入力の負担を最小化した。</li>
+          <li>ステータスを色で区別し、一覧を見た瞬間に進捗を把握できるようにした。</li>
+          <li>誤操作での削除を防ぐため、削除前に確認を挟む導線にした。</li>
+        </ul>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">03 — Implementation</span>実装内容</h2>
+        <p>素のJavaScriptで状態（応募データの配列）を管理し、追加・編集・削除のたびに画面を再描画する仕組みを実装。データは localStorage に保存し、ブラウザを閉じても残るようにしました。</p>
+        <ul>
+          <li>配列とオブジェクトでデータを構造化し、CRUD操作を関数に分割。</li>
+          <li>localStorage への保存・読み込みで永続化を実現。</li>
+          <li>ステータスでの絞り込み表示を実装。</li>
+        </ul>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">04 — Reflection</span>改善ポイント</h2>
+        <p>現状はブラウザ内保存のため、次は学習中のサーブレット／JSP・MySQLを使い、サーバー側でデータを保持する本格的なWebアプリへ発展させたいと考えています。</p>
+      </div>
+    </div>
+    <aside class="detail-side reveal">
+      <div class="row"><div class="k">Role</div><div class="v">設計 / コーディング</div></div>
+      <div class="row"><div class="k">Year</div><div class="v">2026</div></div>
+      <div class="row"><div class="k">Type</div><div class="v">学習制作 02</div></div>
+      <div class="row"><div class="k">Stack</div><div class="v"><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">localStorage</span></div></div></div>
+      <div class="row"><div class="k">Live</div><div class="v"><a href="https://williams7jpyu-dotcom.github.io/portfolio-clean/works/job-app-tracker.html" target="_blank" rel="noopener" style="color:var(--accent);">作品ページを開く ↗</a></div></div>
+    </aside>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="next-proj">
+    <a href="work-lp.html">
+      <span><span class="k">Next Project</span><span class="t">ランディングページ制作</span></span>
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Notes | 西村 祐太</title>
+<meta name="description" content="西村祐太の学習ノート。プログラミング学習で詰まったこと、解決した方法、設計で考えたことの記録。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" aria-current="page">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <span>Notes</span></div>
+  <h1 class="reveal">学びの記録<span class="en">Notes — Learning log</span></h1>
+  <p class="reveal">プログラミング学習で詰まったこと、解決した方法、設計で考えたこと。手を動かして気づいたことを、自分の言葉で書き留めています。前職の事務仕事と地続きだった、という発見が多めです。</p>
+</section>
+
+<section class="section wrap" style="padding-top:24px;">
+  <div class="notes-list">
+    <a class="note-row reveal" href="note-mvc.html">
+      <span class="date">2026.05.18</span>
+      <span><span class="nt">MVCがなかなか掴めなかった話</span><span class="ex">「Controllerに書くのか、Modelに書くのか」で毎回手が止まっていた。原因はコードじゃなかった。</span></span>
+      <span class="cat">Java</span>
+    </a>
+    <a class="note-row reveal" href="note-join.html">
+      <span class="date">2026.04.27</span>
+      <span><span class="nt">JOINでデータが増えてしまった日</span><span class="ex">10件のはずの一覧が30件に。SQLじゃなくて、テーブルの持ち方への理解だった。</span></span>
+      <span class="cat">Database</span>
+    </a>
+    <a class="note-row reveal" href="note-git.html">
+      <span class="date">2026.03.30</span>
+      <span><span class="nt">初めてのmergeコンフリクト</span><span class="ex">5人のチーム実習。赤い文字でCONFLICTと出て、最初は事故かと思った話。</span></span>
+      <span class="cat">Tools</span>
+    </a>
+    <a class="note-row reveal" href="note-exception.html">
+      <span class="date">2026.03.08</span>
+      <span><span class="nt">例外を握りつぶさない</span><span class="ex">とりあえずtry-catchで囲む。それは問題を解決ではなく、隠していただけだった。</span></span>
+      <span class="cat">Java</span>
+    </a>
+    <a class="note-row reveal" href="note-css.html">
+      <span class="date">2026.02.14</span>
+      <span><span class="nt">CSSの余白設計は、紙面づくりと同じだった</span><span class="ex">marginを目分量で足すと散らかる。前職で資料を整えていた感覚がそのまま効いた。</span></span>
+      <span class="cat">CSS</span>
+    </a>
+    <a class="note-row reveal" href="note-team.html">
+      <span class="date">2026.01.22</span>
+      <span><span class="nt">チームリーダーとして工程表を引いた</span><span class="ex">コードは一番できるわけじゃない。でも、段取りなら8年やってきた。</span></span>
+      <span class="cat">Team</span>
+    </a>
+    <a class="note-row reveal" href="note-career.html">
+      <span class="date">2025.12.05</span>
+      <span><span class="nt">なぜ事務職から、コードを書く側へ</span><span class="ex">8年間、正確に「処理する」仕事をしてきた。これからは、その正確さで「つくる」側に。</span></span>
+      <span class="cat">Career</span>
+    </a>
+  </div>
+  <p class="reveal mono muted" style="margin-top:36px;font-size:12px;letter-spacing:0.08em;">※ 各記事は WordPress 投稿として追加・更新していく想定です。</p>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

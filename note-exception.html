@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>例外を握りつぶさない | Notes — 西村 祐太</title>
+<meta name="description" content="Javaの例外処理で、try-catchをどこに置くか・何を投げるかを考えた学習ノート。校正で鍛えた目が役に立った。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" aria-current="page">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="blog.html">Notes</a> <span>/</span> <span>Java</span></div>
+  <div class="article-meta reveal"><span class="cat">Java</span><span class="dot"></span><span>2026.03.08</span><span class="dot"></span><span>読了 約4分</span></div>
+  <h1 class="reveal" style="font-size:clamp(30px,5vw,52px);line-height:1.15;letter-spacing:-0.01em;">例外を握りつぶさない</h1>
+  <p class="article-lede reveal">エラーが出ないように、とりあえずtry-catchで囲む。最初はそうしていた。でもそれは、問題を隠していただけだった。</p>
+</section>
+
+<section class="section wrap" style="padding-top:24px;">
+  <article class="article reveal">
+    <p>Javaを書き始めたころ、赤いエラーが出ると怖くて、とにかく<code class="inl">try-catch</code>で囲んでいた。エラーが画面から消えると安心した。でもある日、「動いているはずなのに結果がおかしい」課題で、まったく原因がつかめなくなった。</p>
+
+    <h2><span class="en">01 — Hiding the problem</span>隠していただけだった</h2>
+    <p>原因は、自分で書いたこのコードだった。</p>
+    <pre><span class="lang">Java</span><code><span class="tok-key">try</span> {
+    int value = <span class="tok-fn">Integer</span>.<span class="tok-fn">parseInt</span>(input);
+    <span class="tok-com">// ... 処理 ...</span>
+} <span class="tok-key">catch</span> (Exception e) {
+    <span class="tok-com">// 何もしない ← これが地獄の入口だった</span>
+}</code></pre>
+    <p><code class="inl">catch</code>で受け取っておきながら、中で何もしていない。エラーは起きているのに、握りつぶされて、誰にも知らされない。表面上は「エラーが出ない」けれど、<strong>本当は「エラーが見えなくなっただけ」</strong>だった。これでは、どこで何が失敗したのか追いようがない。</p>
+
+    <blockquote>エラーを消すことと、エラーを解決することは、まったく別物だった。</blockquote>
+
+    <h2><span class="en">02 — Catch what you can handle</span>対処できるものだけ受ける</h2>
+    <p>学び直して、考え方を変えた。catchするのは「ここで対処できる」ときだけ。対処できないなら、握りつぶさずに、せめて記録するか、呼び出し元へ投げる。</p>
+    <pre><span class="lang">Java</span><code><span class="tok-key">try</span> {
+    int value = <span class="tok-fn">Integer</span>.<span class="tok-fn">parseInt</span>(input);
+} <span class="tok-key">catch</span> (NumberFormatException e) {
+    <span class="tok-com">// 想定できる失敗 → 利用者に分かる形で返す</span>
+    req.<span class="tok-fn">setAttribute</span>(<span class="tok-str">"error"</span>, <span class="tok-str">"数字を入力してください"</span>);
+}</code></pre>
+    <p><code class="inl">Exception</code>でまとめて握るのをやめて、<code class="inl">NumberFormatException</code>のように<strong>想定している失敗だけを名指しで受ける</strong>。そうすると、「ここでは入力ミスを想定している」という意図がコードから読み取れる。</p>
+
+    <h2><span class="en">03 — The proofreader's eye</span>校正の目が効いた</h2>
+    <p>これは、前職の校正の仕事と地続きだった。資料のチェックでいちばんやってはいけないのが、<strong>「たぶん大丈夫」で見逃すこと</strong>。怪しいところを握りつぶさず、必ず確認して、判断の根拠を残す。例外処理で「握りつぶさない」と知ったとき、ああ、これは知っている考え方だ、と思った。</p>
+
+    <div class="callout">
+      <div class="h">いまの自分ルール</div>
+      <p>空のcatchは書かない。catchするなら「対処する」か「記録する」か「投げ直す」のどれか。エラーは、消すものじゃなくて、扱うもの。</p>
+    </div>
+
+    <hr class="sep" />
+    <p class="muted" style="font-size:14px;">— 学習中に詰まったこと、解決した方法を、忘れないように書き留めています。間違いに気づいたら追記・修正していきます。</p>
+  </article>
+
+  <div class="article-author reveal" style="margin-top:48px;">
+    <img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/profile.png" alt="西村祐太" />
+    <div>
+      <div class="nm">西村 祐太</div>
+      <div class="bio">金融機関向けBPOで約8年、正確性が問われる現場に従事。現在は職業訓練校でJava・Web開発を学習中。「正確さ」をコードに持ち込もうとしています。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" style="padding-top:0;">
+  <nav class="note-nav reveal" aria-label="記事ナビゲーション">
+    <a class="prev" href="note-git.html"><div class="k">← 前の記事</div><div class="t">初めてのmergeコンフリクト</div></a>
+    <a class="next" href="note-css.html"><div class="k">次の記事 →</div><div class="t">CSSの余白設計は、紙面づくりと同じだった</div></a>
+  </nav>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MVCがなかなか掴めなかった話 | Notes — 西村 祐太</title>
+<meta name="description" content="サーブレット/JSPでMVCを学んだとき、リクエストの流れを図にして責務を整理したら腑に落ちた、という学習ノート。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" aria-current="page">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="blog.html">Notes</a> <span>/</span> <span>MVC</span></div>
+  <div class="article-meta reveal"><span class="cat">Java</span><span class="dot"></span><span>2026.05.18</span><span class="dot"></span><span>読了 約6分</span></div>
+  <h1 class="reveal" style="font-size:clamp(30px,5vw,52px);line-height:1.15;letter-spacing:-0.01em;">MVCがなかなか掴めなかった話</h1>
+  <p class="article-lede reveal">「Controllerに書くのか、Modelに書くのか」で毎回手が止まっていた。原因はコードじゃなくて、頭の中に流れの地図がなかったことだった。</p>
+</section>
+
+<section class="section wrap" style="padding-top:24px;">
+  <article class="article reveal">
+    <p>サーブレットとJSPを習い始めて、最初の壁がMVCだった。教科書には「ModelとViewとControllerに分ける」と書いてある。言葉の意味は分かる。でも、いざ自分で課題を作ろうとすると、<strong>このコードはどこに書けばいいんだ</strong>という手が、毎回止まった。</p>
+
+    <p>DBから一覧を取ってくる処理。これはModel。画面に出すのはJSP=View。じゃあ「一覧ページを開いたらDBを呼んで結果を渡す」という<em>つなぎ</em>は？ ……ここがずっと曖昧だった。</p>
+
+    <h2><span class="en">01 — What I missed</span>つまずいていた原因</h2>
+    <p>結論から言うと、僕に足りていなかったのは知識じゃなくて<strong>「リクエストがどこを通っていくか」という地図</strong>だった。クラスの役割を単語で覚えても、処理の流れが見えていないと置き場所は決められない。</p>
+    <p>そこで、前職で資料の校正をしていたときの癖が役に立った。複雑な手順は、必ず一度フローにして紙に書き出す。今回も同じことをした。</p>
+
+    <figure class="shot">
+      <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:30px 24px;font-family:var(--font-mono);font-size:13px;line-height:2;color:var(--ink-soft);">
+        ① ブラウザ &nbsp;──リクエスト──▶&nbsp; <span style="color:var(--accent);">Controller（Servlet）</span><br/>
+        ② Controller &nbsp;──呼び出し──▶&nbsp; <span style="color:var(--accent);">Model（処理・DB）</span><br/>
+        ③ Model &nbsp;──結果を返す──▶&nbsp; Controller<br/>
+        ④ Controller &nbsp;──データを渡して転送──▶&nbsp; <span style="color:var(--accent);">View（JSP）</span><br/>
+        ⑤ View &nbsp;──HTML──▶&nbsp; ブラウザ
+      </div>
+      <figcaption>ノートに書いたリクエストの流れ。これを貼ってから手が止まらなくなった。</figcaption>
+    </figure>
+
+    <p>この5ステップを声に出して読めるようになってから、「どこに書くか」で迷うことがほぼなくなった。<strong>Controllerは交通整理だけ。重い処理はModel。画面はView。</strong> 流れの中に置けば、役割は自然に決まる。</p>
+
+    <h2><span class="en">02 — In code</span>コードに落とすと</h2>
+    <p>実際に書いた一覧表示のControllerは、驚くほど薄くなった。仕事をしていないように見えて、これでいい。</p>
+    <pre><span class="lang">Java</span><code><span class="tok-com">// Controller — 受け取って、振り分けて、渡すだけ</span>
+<span class="tok-key">protected void</span> <span class="tok-fn">doGet</span>(HttpServletRequest req, HttpServletResponse res)
+        <span class="tok-key">throws</span> ServletException, IOException {
+
+    <span class="tok-com">// Modelに任せる（Controllerは中身を知らない）</span>
+    ItemDao dao = <span class="tok-key">new</span> <span class="tok-fn">ItemDao</span>();
+    List&lt;Item&gt; items = dao.<span class="tok-fn">findAll</span>();
+
+    <span class="tok-com">// Viewに渡して転送する</span>
+    req.<span class="tok-fn">setAttribute</span>(<span class="tok-str">"items"</span>, items);
+    req.<span class="tok-fn">getRequestDispatcher</span>(<span class="tok-str">"/list.jsp"</span>)
+       .<span class="tok-fn">forward</span>(req, res);
+}</code></pre>
+    <p>ポイントは、Controllerが<code class="inl">findAll()</code>の<em>中身</em>を一切知らないこと。SQLがどうなっているか、テーブルが何かは、Modelの責任。Controllerは「取ってきて」と頼んで「画面に渡す」だけ。</p>
+
+    <blockquote>役割で迷ったら、コードを直す前に流れの図を見直す。たいてい、置き場所じゃなくて流れの理解がずれている。</blockquote>
+
+    <h2><span class="en">03 — Why it clicked</span>腑に落ちた理由</h2>
+    <p>振り返ると、これは前職でやっていた業務の分担とまったく同じだった。受付の人が、自分で全部処理しようとせずに担当部署へ回す。資料を作る人と、それをチェックして発送する人を分ける。<strong>責務を分けると、どこで何が起きているか追える</strong>。バグが出ても「Modelか、Controllerか」で切り分けられる。</p>
+    <p>「分けると後で楽になる」という感覚は、8年間の事務仕事でさんざん体に入っていたものだった。技術用語が新しかっただけで、考え方は知っていた。そう気づいてから、学習がぐっと楽になった。</p>
+
+    <div class="callout">
+      <div class="h">次にやること</div>
+      <p>いまは1つのServletに1つの処理。次は、URLごとの分岐をフロントコントローラ1枚にまとめる構成を試して、画面が増えてもController地獄にならない作りを学ぶ。</p>
+    </div>
+
+    <hr class="sep" />
+    <p class="muted" style="font-size:14px;">— 学習中に詰まったこと、解決した方法を、忘れないように書き留めています。間違いに気づいたら追記・修正していきます。</p>
+  </article>
+
+  <div class="article-author reveal" style="margin-top:48px;">
+    <img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/profile.png" alt="西村祐太" />
+    <div>
+      <div class="nm">西村 祐太</div>
+      <div class="bio">金融機関向けBPOで約8年、正確性が問われる現場に従事。現在は職業訓練校でJava・Web開発を学習中。「正確さ」をコードに持ち込もうとしています。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" style="padding-top:0;">
+  <nav class="note-nav reveal" aria-label="記事ナビゲーション">
+    <a class="prev" href="note-css.html"><div class="k">← 前の記事</div><div class="t">CSSの余白設計は、紙面づくりと同じだった</div></a>
+    <a class="next" href="note-join.html"><div class="k">次の記事 →</div><div class="t">JOINでデータが増えてしまった日</div></a>
+  </nav>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>コーポレートサイト構築 | 西村 祐太</title>
+<meta name="description" content="架空カフェのコーポレートサイト制作。情報設計からレスポンシブ実装まで。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site-components.css" />
+<script src="assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="メインナビゲーション">
+    <a class="brand" href="index.html"><span class="mark">YN</span><span class="nm">西村 祐太<small>Yuta Nishimura</small></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="works.html" aria-current="page">Works</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Notes</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" data-theme-toggle aria-label="テーマ切替">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-label="メニュー" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero wrap">
+  <div class="crumbs reveal"><a href="index.html">Home</a> <span>/</span> <a href="works.html">Works</a> <span>/</span> <span>01</span></div>
+  <h1 class="reveal">コーポレートサイト構築<span class="en">Cafe Latte — Corporate Website</span></h1>
+  <p class="reveal">架空カフェのブランドサイトを題材に、情報設計からレスポンシブ実装までを一人で担当。「初めて訪れた人が、5秒で雰囲気と場所を掴める」を設計のゴールに置きました。</p>
+</section>
+
+<section class="wrap reveal">
+  <div class="detail-hero"><img src="https://williams7jpyu-dotcom.github.io/portfolio-clean/assets/work-cafe.png" alt="コーポレートサイトのスクリーンショット" /></div>
+</section>
+
+<section class="section wrap">
+  <div class="detail-grid">
+    <div>
+      <div class="detail-block reveal">
+        <h2><span class="en">01 — Overview</span>概要</h2>
+        <p>カフェ「Cafe Latte」のコーポレートサイトを想定した制作課題です。トップ・メニュー・店舗情報・お問い合わせの4セクションを1ページに収め、スマートフォンからの閲覧を主軸に設計しました。</p>
+        <p>装飾を足すのではなく、写真・余白・タイポグラフィの3要素だけで「居心地のよさ」を伝えることを意識しています。</p>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">02 — Approach</span>設計意図</h2>
+        <ul>
+          <li>情報の優先順位を整理し、ファーストビューに「世界観の写真」と「営業時間・場所」を同居させた。</li>
+          <li>セクション間の余白に明確なリズムを設け、スクロールしても迷子にならない構成にした。</li>
+          <li>カラーは2色＋無彩色に絞り、写真の魅力を邪魔しないトーンに統一した。</li>
+        </ul>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">03 — Implementation</span>実装内容</h2>
+        <p>セマンティックなHTMLで構造を組み、CSSは Flexbox / Grid と CSS変数でレイアウトとカラーを管理。JavaScript はハンバーガーメニューの開閉とスムーススクロールに限定し、軽量さを保ちました。</p>
+        <ul>
+          <li>モバイルファーストで設計し、3つのブレークポイントで検証。</li>
+          <li>画像は遅延読み込み（loading="lazy"）で初期表示を高速化。</li>
+          <li>前職の校正経験を活かし、文言・表記ゆれ・余白の不揃いを最後に総点検。</li>
+        </ul>
+      </div>
+      <div class="detail-block reveal">
+        <h2><span class="en">04 — Reflection</span>改善ポイント</h2>
+        <p>現状はデザインの再現に重きを置いたため、次はアクセシビリティ（コントラスト比・フォーカス可視化・代替テキストの精度）と、CMS化による更新性の確保に取り組みたいと考えています。</p>
+      </div>
+    </div>
+    <aside class="detail-side reveal">
+      <div class="row"><div class="k">Role</div><div class="v">構成 / コーディング</div></div>
+      <div class="row"><div class="k">Year</div><div class="v">2026</div></div>
+      <div class="row"><div class="k">Type</div><div class="v">学習制作 01</div></div>
+      <div class="row"><div class="k">Stack</div><div class="v"><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div></div></div>
+      <div class="row"><div class="k">Live</div><div class="v"><a href="https://williams7jpyu-dotcom.github.io/portfolio-clean/works/cafe-latte.html" target="_blank" rel="noopener" style="color:var(--accent);">作品ページを開く ↗</a></div></div>
+    </aside>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="next-proj">
+    <a href="work-tracker.html">
+      <span><span class="k">Next Project</span><span class="t">応募管理ミニアプリ</span></span>
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="big">西村 祐太</div><p>正確さと段取りを武器に、つくる側へ。ライティングからフロントエンド実装まで。</p></div>
+      <div><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="works.html">Works</a></li><li><a href="about.html">About</a></li><li><a href="blog.html">Notes</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:williams7.jp.yu@gmail.com">Email</a></li><li><a href="https://github.com/williams7jpyu-dotcom" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 Yuta Nishimura</span><span>Designed &amp; built with care — Tokyo, JP</span></div>
+  </div>
+</footer>
+
+</body>
+</html>
